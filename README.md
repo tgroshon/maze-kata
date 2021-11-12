@@ -1,5 +1,11 @@
 # maze-kata
 
+Quickstart:
+
+1. Install MagickWand library: `apt install libmagickwand-dev`
+2. Install python requirements: `pip install -r pip-requirements.txt`
+3. Run: `python3 solver_practice.py`
+
 Problems to solve:
 
 1. What spaces are empty?
