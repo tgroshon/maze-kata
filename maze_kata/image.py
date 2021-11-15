@@ -2,36 +2,50 @@ import cv2 as cv
 
 
 def digitize_maze_image(img_path):
+    """Read the image at file path and turn into intermediate representation"""
     img = cv.imread(img_path)
-    mk_image = Maze(img)
-    # mk_image.parse_maze()
-    return mk_image
+    maze_data = parse_maze(img)
+    return Maze(img, maze_data)
 
 
-def output_solution_image(img_path, maze, solution):
+def output_solution_image(output_path, maze, solution):
+    """Write the maze solution to an image at output path"""
     img = generate_solution_image(maze, solution)
-    cv.imwrite(img_path, img)
+    cv.imwrite(output_path, img)
 
 
 def generate_solution_image(maze, solution):
-    pass
+    """Generate an image of the maze solution
+
+    FIXME: Placeholder; make this work
+    """
+    return maze.raw_image
 
 
-# Wrapper class for custom behavior
+def parse_maze(cv_img):
+    """Parse an image into an intermediate representation of booleans representing maze spaces
+
+    FIXME: Placeholder; make this work
+    """
+    return [[False, False, True, False], [False, False, True, False]]
+
+
 class Maze:
-    def __init__(self, cv_img):
-        self._raw_image = cv_img
+    """Intermediate representation of a maze"""
 
-    def parse_maze():
-        pass
+    def __init__(self, cv_img, parsed_data):
+        self._raw_image = cv_img
+        self._parsed_data = parsed_data
+
+    @property
+    def data(self):
+        return self._parsed_data
 
     @property
     def raw_image(self):
         return self._raw_image
 
-    @property
-    def name(self):
-        return self._name
+    # TODO: remove these bottom debugging properties
 
     @property
     def pixel_height(self):
