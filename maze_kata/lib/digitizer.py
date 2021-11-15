@@ -21,6 +21,11 @@ def generate_solution_image(input_img, solution):
 
     FIXME: Placeholder; make this work
     """
+    for [row, col] in solution:
+        [rpx, cpx] = _calc_centerpoint_of_cell(row, col)
+        input_img[rpx - 5 : rpx + 5, cpx - 5 : cpx + 5] = [
+            [0, 0, 255] for _ in range(10)
+        ]
     return input_img
 
 
@@ -41,7 +46,10 @@ def parse_maze_data(cv_img):
     rows = h // CELL_HEIGHT
     columns = w // CELL_WIDTH
 
-    return [[_identify_cell(cv_img, r, c) for c in range(columns)] for r in range(rows)]
+    return [
+        [_identify_cell(cv_img, r + 1, c + 1) for c in range(columns)]
+        for r in range(rows)
+    ]
 
 
 def _identify_cell(img, row_num, col_num):
@@ -55,9 +63,9 @@ def _identify_cell(img, row_num, col_num):
 
 def _calc_centerpoint_of_cell(row_num, col_num):
     """Calculate the centerpoint of a cell by row and column"""
-    row_offset = row_num * CELL_HEIGHT
+    row_offset = (row_num - 1) * CELL_HEIGHT
     row = CELL_HEIGHT_MID + row_offset
 
-    col_offset = col_num * CELL_WIDTH
+    col_offset = (col_num - 1) * CELL_WIDTH
     col = CELL_WIDTH_MID + col_offset
     return [row, col]
