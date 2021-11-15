@@ -23,9 +23,9 @@ def generate_solution_image(input_img, solution):
     """
     for [row, col] in solution:
         [rpx, cpx] = _calc_centerpoint_of_cell(row, col)
-        input_img[rpx - 5 : rpx + 5, cpx - 5 : cpx + 5] = [
-            [0, 0, 255] for _ in range(10)
-        ]
+        cv.circle(
+            input_img, center=(cpx, rpx), radius=10, color=(0, 0, 255), thickness=-1
+        )
     return input_img
 
 
