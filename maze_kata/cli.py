@@ -1,4 +1,5 @@
 import click
+from image_parser import parse
 from maze_kata import solve
 
 
@@ -7,7 +8,8 @@ from maze_kata import solve
 def main(**kwarg):
     """Begin solving process."""
     filepath = kwarg.get("file")
-    solve(filepath)
+    mk_image = parse(filepath)
+    solve(mk_image)
     click.echo("Done.")
 
 

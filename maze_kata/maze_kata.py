@@ -1,6 +1,2 @@
-import cv2 as cv
-
-def solve(img_path):
-    img = cv.imread(img_path)
-    (height, width, _) = img.shape
-    print(f"Dimensions of '{img_path}':", width, "x", height)
+def solve(mk_image):
+    print(f"Dimensions of '{mk_image.name}':", mk_image.width, "x", mk_image.height)
