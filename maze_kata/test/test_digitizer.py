@@ -1,6 +1,6 @@
 import unittest
 import cv2 as cv
-from maze_kata.digitizer import parse_maze_data
+from ..lib.digitizer import parse_maze_data
 
 SINGLE_ROW_IMG = "./assets/single_row_us1.png"
 HALLWAY_IMG = "./assets/hallway_us2.png"

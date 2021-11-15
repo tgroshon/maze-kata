@@ -1,5 +1,5 @@
 import unittest
-from maze_kata.maze import Maze
+from ..lib.maze import Maze
 
 data_2x3 = [
     [False, True, False],
