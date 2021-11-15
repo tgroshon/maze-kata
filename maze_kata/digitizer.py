@@ -24,9 +24,35 @@ def generate_solution_image(input_img, solution):
     return input_img
 
 
+CELL_HEIGHT = 63  # ± 1 px
+CELL_HEIGHT_MID = CELL_HEIGHT // 2
+CELL_WIDTH = 87  # ± 1 px
+CELL_WIDTH_MID = CELL_WIDTH // 2
+
+
 def parse_maze_data(cv_img):
     """Parse an image into an intermediate representation of booleans representing maze spaces
 
     FIXME: Placeholder; make this work
     """
-    return [[False, False, True, False], [False, False, True, False]]
+    (h, w, _) = cv_img.shape
+
+    # floor division to get integers
+    rows = h // CELL_HEIGHT
+    columns = w // CELL_WIDTH
+
+    return [[_identify_cell(cv_img, r, c) for c in range(columns)] for r in range(rows)]
+
+
+def _identify_cell(img, row_num, col_num):
+    """Identify if a cell is a space with a boolean"""
+    row_offset = row_num * CELL_HEIGHT
+    row = CELL_HEIGHT_MID + row_offset
+
+    col_offset = col_num * CELL_WIDTH
+    col = CELL_WIDTH_MID + col_offset
+
+    [blue, green, red] = img[row, col]
+
+    # NOTE: Only set cell to empty if it's true white
+    return blue == 255 and green == 255 and red == 255
