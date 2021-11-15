@@ -12,16 +12,16 @@ from solver import solve
 )
 def main(**kwarg):
     """Begin solving process."""
-    filepath = kwarg.get("file")
+    img_filepath = kwarg.get("file")
     output_path = kwarg.get("output")
 
-    maze = digitize_maze_image(filepath)
+    maze = digitize_maze_image(img_filepath)
     click.echo(f"Parsed a {maze.shape.rows}x{maze.shape.columns} maze.")
     solution = solve(maze)
 
     if solution:
         click.echo(f"Solution found! Outputting solved maze to {output_path}")
-        output_solution_image(output_path, maze, solution)
+        output_solution_image(img_filepath, output_path, maze, solution)
         click.echo("Done.")
     else:
         click.echo("No solution found.")

@@ -6,21 +6,17 @@ class Maze:
 
     Rules:
      - 1-based rows and columns
+     - Adjacent means top, down, left, right. No diagonals.
     """
 
     Shape = namedtuple("MazeShape", ("rows columns"))
 
-    def __init__(self, cv_img, parsed_data):
-        self._raw_image = cv_img
+    def __init__(self, parsed_data):
         self._parsed_data = parsed_data
 
     @property
     def data(self):
         return self._parsed_data
-
-    @property
-    def raw_image(self):
-        return self._raw_image
 
     @property
     def shape(self):
