@@ -16,12 +16,12 @@ def output_solution_image(input_path, output_path, maze, solution):
     cv.imwrite(output_path, output_img)
 
 
-def generate_solution_image(maze, solution):
+def generate_solution_image(input_img, solution):
     """Generate an image of the maze solution
 
     FIXME: Placeholder; make this work
     """
-    return maze.raw_image
+    return input_img
 
 
 def parse_maze_data(cv_img):
