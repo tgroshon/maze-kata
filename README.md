@@ -2,10 +2,9 @@
 
 Quickstart:
 
-1. Install MagickWand library: `apt install libmagickwand-dev`
-2. Install python requirements: `pip install -r pip-requirements.txt`
-3. Run CLI: `python3 maze_kata/cli.py <file>`
-4. Run tests: `pytest`
+1. Install python requirements: `pip install -r pip-requirements.txt`
+2. Run CLI: `python3 maze_kata/cli.py <file>`
+3. Run tests: `pytest`
 
 Problems to solve:
 

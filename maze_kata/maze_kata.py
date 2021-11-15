@@ -1,6 +1,6 @@
-from wand.image import Image
-
+import cv2 as cv
 
 def solve(img_path):
-    img = Image(filename=img_path)
-    print(f"Dimensions of '{img_path}':", img.width, "x", img.height)
+    img = cv.imread(img_path)
+    (height, width, _) = img.shape
+    print(f"Dimensions of '{img_path}':", width, "x", height)
