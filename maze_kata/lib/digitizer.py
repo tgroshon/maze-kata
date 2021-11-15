@@ -17,10 +17,7 @@ def output_solution_image(input_path, output_path, maze, solution):
 
 
 def generate_solution_image(input_img, solution):
-    """Generate an image of the maze solution
-
-    FIXME: Placeholder; make this work
-    """
+    """Generate an image of the maze solution"""
     for [row, col] in solution:
         [rpx, cpx] = _calc_centerpoint_of_cell(row, col)
         cv.circle(
@@ -36,10 +33,7 @@ CELL_WIDTH_MID = CELL_WIDTH // 2
 
 
 def parse_maze_data(cv_img):
-    """Parse an image into an intermediate representation of booleans representing maze spaces
-
-    FIXME: Placeholder; make this work
-    """
+    """Parse an image into an intermediate representation of booleans representing maze spaces"""
     (h, w, _) = cv_img.shape
 
     # floor division to get integers
