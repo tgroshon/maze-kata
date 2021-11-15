@@ -1,6 +1,6 @@
 import click
-from image import digitize_maze_image, output_solution_image
-from maze_solver import solve
+from digitizer import digitize_maze_image, output_solution_image
+from solver import solve
 
 
 @click.command()
@@ -16,10 +16,15 @@ def main(**kwarg):
     output_path = kwarg.get("output")
 
     maze = digitize_maze_image(filepath)
+    click.echo(f"Parsed a {maze.shape.rows}x{maze.shape.columns} maze.")
     solution = solve(maze)
-    # output_solution_image(output_path, maze, solution)
 
-    click.echo("Done.")
+    if solution:
+        click.echo(f"Solution found! Outputting solved maze to {output_path}")
+        output_solution_image(output_path, maze, solution)
+        click.echo("Done.")
+    else:
+        click.echo("No solution found.")
 
 
 if __name__ == "__main__":
