@@ -26,6 +26,24 @@ class Maze:
 
         return self._shape
 
+    def is_end(self, address):
+        return array_equal(address, self.get_end_space())
+
+    def is_start(self, address):
+        return array_equal(address, self.get_start_space())
+
+    def is_deadend(self, address):
+        if self.is_end(address) or self.is_start(address):
+            return False
+
+        return len(self.get_adjacent_spaces(address)) <= 1
+
+    def is_inbounds(self, address):
+        [row, col] = address
+        return (
+            row > 0 and col > 0 and row <= self.shape.rows and col <= self.shape.columns
+        )
+
     def get_row(self, row_num):
         if row_num <= 0:
             raise Exception(f"Rows are 1-based, got: {row_num}")
@@ -47,18 +65,6 @@ class Maze:
 
         return [last_row, idx + 1]
 
-    def is_end(self, address):
-        return array_equal(address, self.get_end_space())
-
-    def is_start(self, address):
-        return array_equal(address, self.get_start_space())
-
-    def is_deadend(self, address):
-        if self.is_end(address) or self.is_start(address):
-            return False
-
-        return len(self.get_adjacent_spaces(address)) <= 1
-
     def get_cell(self, address):
         if not self.is_inbounds(address):
             return None
@@ -79,9 +85,3 @@ class Maze:
             for neighbor in [left, right, above, below]
             if self.is_inbounds(neighbor) and self.get_cell(neighbor)
         ]
-
-    def is_inbounds(self, address):
-        [row, col] = address
-        return (
-            row > 0 and col > 0 and row <= self.shape.rows and col <= self.shape.columns
-        )
