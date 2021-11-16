@@ -37,3 +37,8 @@ class TestMaze(unittest.TestCase):
         maze = Maze(data_6x4)
         with self.assertRaises(Exception):
             maze.get_row(0)
+
+    def test_get_start_space_2x3(self):
+        maze = Maze(data_2x3)
+        start = maze.get_start_space()
+        self.assertEqual(start, [1, 2])

@@ -8,7 +8,9 @@ def solve(maze):
 
 class DefaultStrategy:
     def solve(self, maze):
+        start_space = maze.get_start_space()
+
         if maze.shape.rows == 1:
-            return maze.get_start_space()
+            return [start_space]
 
         return None

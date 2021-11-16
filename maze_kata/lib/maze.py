@@ -36,4 +36,4 @@ class Maze:
         if not idx:
             return None
 
-        return [[1, idx + 1]]
+        return [1, idx + 1]
