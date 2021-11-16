@@ -1,4 +1,5 @@
 from collections import namedtuple
+from numpy import array_equal
 
 
 class Maze:
@@ -37,6 +38,26 @@ class Maze:
             return None
 
         return [1, idx + 1]
+
+    def get_end_space(self):
+        last_row = self.shape.rows
+        idx = self.get_row(last_row).index(True)
+        if not idx:
+            return None
+
+        return [last_row, idx + 1]
+
+    def is_end(self, address):
+        return array_equal(address, self.get_end_space())
+
+    def is_start(self, address):
+        return array_equal(address, self.get_start_space())
+
+    def is_deadend(self, address):
+        if self.is_end(address) or self.is_start(address):
+            return False
+
+        return len(self.get_adjacent_spaces(address)) <= 1
 
     def get_cell(self, address):
         if not self.is_inbounds(address):
