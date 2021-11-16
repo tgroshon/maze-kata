@@ -37,3 +37,30 @@ class Maze:
             return None
 
         return [1, idx + 1]
+
+    def get_cell(self, address):
+        if not self.is_inbounds(address):
+            return None
+
+        [row, col] = address
+        return self.data[row - 1][col - 1]
+
+    def get_adjacent_spaces(self, address):
+        [row, col] = address
+
+        left = [row, col - 1]
+        right = [row, col + 1]
+        above = [row + 1, col]
+        below = [row - 1, col]
+
+        return [
+            neighbor
+            for neighbor in [left, right, above, below]
+            if self.is_inbounds(neighbor) and self.get_cell(neighbor)
+        ]
+
+    def is_inbounds(self, address):
+        [row, col] = address
+        return (
+            row > 0 and col > 0 and row <= self.shape.rows and col <= self.shape.columns
+        )
