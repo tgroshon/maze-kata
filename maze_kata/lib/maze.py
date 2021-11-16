@@ -30,3 +30,10 @@ class Maze:
             raise Exception(f"Rows are 1-based, got: {row_num}")
 
         return self.data[row_num - 1]
+
+    def get_start_space(self):
+        idx = self.get_row(1).index(True)
+        if not idx:
+            return None
+
+        return [[1, idx + 1]]
