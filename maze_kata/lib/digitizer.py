@@ -18,8 +18,8 @@ def output_solution_image(input_path, output_path, maze, solution):
 
 def generate_solution_image(input_img, solution):
     """Generate an image of the maze solution"""
-    for [row, col] in solution:
-        [rpx, cpx] = _calc_centerpoint_of_cell(row, col)
+    for row, col in solution:
+        rpx, cpx = _calc_centerpoint_of_cell(row, col)
         cv.circle(
             input_img, center=(cpx, rpx), radius=10, color=(0, 0, 255), thickness=-1
         )
@@ -48,7 +48,7 @@ def parse_maze_data(cv_img):
 
 def _identify_cell(img, row_num, col_num):
     """Identify if a cell is a space with a boolean"""
-    [row, col] = _calc_centerpoint_of_cell(row_num, col_num)
+    row, col = _calc_centerpoint_of_cell(row_num, col_num)
     [blue, green, red] = img[row, col]
 
     # NOTE: Only set cell to empty if it's true white
@@ -62,4 +62,4 @@ def _calc_centerpoint_of_cell(row_num, col_num):
 
     col_offset = (col_num - 1) * CELL_WIDTH
     col = CELL_WIDTH_MID + col_offset
-    return [row, col]
+    return row, col

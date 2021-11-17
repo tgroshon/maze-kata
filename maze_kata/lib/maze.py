@@ -28,10 +28,10 @@ class Maze:
         return self._shape
 
     def is_end(self, address):
-        return array_equal(address, self.get_end_space())
+        return address == self.get_end_space()
 
     def is_start(self, address):
-        return array_equal(address, self.get_start_space())
+        return address == self.get_start_space()
 
     def is_deadend(self, address):
         if self.is_end(address) or self.is_start(address):
@@ -40,7 +40,7 @@ class Maze:
         return len(self.get_adjacent_spaces(address)) <= 1
 
     def is_inbounds(self, address):
-        [row, col] = address
+        row, col = address
         return (
             row > 0 and col > 0 and row <= self.shape.rows and col <= self.shape.columns
         )
@@ -56,7 +56,7 @@ class Maze:
         if not idx:
             return None
 
-        return [1, idx + 1]
+        return (1, idx + 1)
 
     def get_end_space(self):
         last_row = self.shape.rows
@@ -64,25 +64,25 @@ class Maze:
         if not idx:
             return None
 
-        return [last_row, idx + 1]
+        return (last_row, idx + 1)
 
     def get_cell(self, address):
         if not self.is_inbounds(address):
             return None
 
-        [row, col] = address
+        row, col = address
         return self.data[row - 1][col - 1]
 
     def get_adjacent_spaces(self, address):
         [row, col] = address
 
-        left = [row, col - 1]
-        right = [row, col + 1]
-        above = [row + 1, col]
-        below = [row - 1, col]
+        left = (row, col - 1)
+        right = (row, col + 1)
+        above = (row + 1, col)
+        below = (row - 1, col)
 
         return [
             neighbor
-            for neighbor in [left, right, above, below]
+            for neighbor in (left, right, above, below)
             if self.is_inbounds(neighbor) and self.get_cell(neighbor)
         ]

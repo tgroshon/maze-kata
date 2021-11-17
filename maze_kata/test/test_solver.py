@@ -18,7 +18,7 @@ class TestSolve(unittest.TestCase):
         solution = solve(one_step_maze)
         self.assertIsNotNone(solution, "Must find a solution for a one-step maze")
         self.assertEqual(
-            [[1, 3]],
+            [(1, 3)],
             solution,
         )
 
