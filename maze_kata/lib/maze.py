@@ -3,14 +3,6 @@ from numpy import array_equal
 from dataclasses import dataclass
 
 
-@dataclass
-class Cell:
-    row: int
-    column: int
-    is_space: bool
-    visited: bool
-
-
 class Maze:
     """Intermediate representation of a maze
 
