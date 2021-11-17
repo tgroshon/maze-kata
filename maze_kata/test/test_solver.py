@@ -22,10 +22,64 @@ class TestSolve(unittest.TestCase):
             solution,
         )
 
-    @unittest.skip("Known to be missing")
     def test_finds_solution_for_hallway_maze(self):
-        hallway_data = [[False, False, True, False], [False, False, True, False]]
+        hallway_data = [
+            [False, False, True, False],
+            [False, False, True, False],
+            [False, False, True, False],
+        ]
         hallway_maze = Maze(hallway_data)
 
         solution = solve(hallway_maze)
+
         self.assertIsNotNone(solution, "Must find a solution for a hallway maze")
+        self.assertEqual(solution, [(1, 3), (2, 3), (3, 3)])
+
+    def test_finds_solution_for_following_winding_path(self):
+        winding_path_data = [
+            [False, True, False, False, False],
+            [False, True, True, True, False],
+            [False, False, False, True, False],
+            [False, True, True, True, False],
+            [False, True, False, False, False],
+            [False, True, True, True, False],
+            [False, False, False, True, False],
+        ]
+        winding_maze = Maze(winding_path_data)
+
+        solution = solve(winding_maze)
+        self.assertIsNotNone(solution, "Must find a solution for a winding path maze")
+        self.assertEqual(
+            solution,
+            [
+                (1, 2),
+                (2, 2),
+                (2, 3),
+                (2, 4),
+                (3, 4),
+                (4, 4),
+                (4, 3),
+                (4, 2),
+                (5, 2),
+                (6, 2),
+                (6, 3),
+                (6, 4),
+                (7, 4),
+            ],
+        )
+
+    @unittest.skip("known to be broken")
+    def test_finds_solution_for_room_maze(self):
+        """FIXME: this breaks"""
+        room_data = [
+            [False, True, False, False, False],
+            [False, True, True, True, False],
+            [False, True, True, True, False],
+            [False, False, False, True, False],
+        ]
+        room_maze = Maze(room_data)
+
+        solution = solve(room_maze)
+
+        self.assertIsNotNone(solution, "Must find a solution for a room maze")
+        self.assertEqual(solution, [(1, 2), (2, 2), (3, 2), (3, 3), (3, 4), (4, 4)])

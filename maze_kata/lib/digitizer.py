@@ -33,7 +33,11 @@ CELL_WIDTH_MID = CELL_WIDTH // 2
 
 
 def parse_maze_data(cv_img):
-    """Parse an image into an intermediate representation of booleans representing maze spaces"""
+    """Parse an image into an intermediate representation of booleans representing maze spaces
+
+    FIXME: unnecessarily storing full maze grid when only an adjacency list of
+    the moveable cells matter
+    """
     (h, w, _) = cv_img.shape
 
     # floor division to get integers
