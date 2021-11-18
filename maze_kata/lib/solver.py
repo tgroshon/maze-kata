@@ -47,3 +47,17 @@ class DefaultStrategy:
                     stack.append(neighbor)
 
         return visited
+
+    def fill_deadends(self, maze):
+        visited = set()
+        stack = [cell for cell in maze.cell_iter() if maze.is_deadend(cell)]
+
+        while len(stack):
+            address = stack.pop()
+
+            neighbors = maze.get_adjacent_spaces(address)
+            if len(neighbors) == 1:
+                stack.append(neighbors[0])
+
+            if maze.is_deadend(address):
+                maze.fill_space(address)

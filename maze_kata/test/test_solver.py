@@ -1,5 +1,5 @@
 import unittest
-from ..lib.solver import solve
+from ..lib.solver import solve, DefaultStrategy
 from ..lib.maze import Maze
 
 
@@ -68,18 +68,31 @@ class TestSolve(unittest.TestCase):
             ],
         )
 
-    @unittest.skip("known to be broken")
-    def test_finds_solution_for_room_maze(self):
-        """FIXME: this breaks"""
-        room_data = [
-            [False, True, False, False, False],
-            [False, True, True, True, False],
-            [False, True, True, True, False],
-            [False, False, False, True, False],
-        ]
-        room_maze = Maze(room_data)
 
-        solution = solve(room_maze)
+class TestDefaultSolver(unittest.TestCase):
+    def test_fill_deadends(self):
+        strategy = DefaultStrategy()
+        maze = Maze(
+            [
+                [False, True, False, False, False],
+                [False, True, True, True, False],
+                [False, True, False, False, False],
+                [False, True, True, True, False],
+                [False, True, False, True, False],
+                [False, False, False, True, False],
+            ]
+        )
 
-        self.assertIsNotNone(solution, "Must find a solution for a room maze")
-        self.assertEqual(solution, [(1, 2), (2, 2), (3, 2), (3, 3), (3, 4), (4, 4)])
+        strategy.fill_deadends(maze)
+
+        self.assertEqual(
+            maze.data,
+            [
+                [False, True, False, False, False],
+                [False, True, False, False, False],
+                [False, True, False, False, False],
+                [False, True, True, True, False],
+                [False, False, False, True, False],
+                [False, False, False, True, False],
+            ],
+        )
