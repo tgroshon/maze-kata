@@ -3,11 +3,11 @@
 Quickstart:
 
 1. Install python requirements: `pip install -r pip-requirements.dev.txt`
-2. Run CLI: `python3 maze_kata/cli.py <file>`
+2. Run CLI: `python3 cli.py <file>`
 3. Run tests: `pytest`
 
 ```
-$ python3 maze_kata/cli.py --help
+$ python3 cli.py --help
 Usage: cli.py [OPTIONS] FILE
 
   Analyze an image of a maze grid and output a solution image.
@@ -66,7 +66,7 @@ TOTAL                          135      7     44      2    94%
 Complex maze benchmark:
 
 ```
-$ time python3 maze_kata/cli.py assets/us6_complex.png
+$ time python3 cli.py assets/us6_complex.png
 Parsed a 10x10 maze.
 Solution found! Outputting solved maze to solution.png
 Done.

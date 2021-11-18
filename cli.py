@@ -1,6 +1,6 @@
 import click
-from lib.digitizer import digitize_maze_image, output_solution_image
-from lib.solver import solve
+from maze_kata.lib.digitizer import digitize_maze_image, output_solution_image
+from maze_kata.lib.solver import solve
 
 
 @click.command()
