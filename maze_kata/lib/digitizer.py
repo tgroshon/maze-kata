@@ -55,7 +55,7 @@ def _identify_cell(img, row_num, col_num):
     row, col = _calc_centerpoint_of_cell(row_num, col_num)
     [blue, green, red] = img[row, col]
 
-    # NOTE: Only set cell to empty if it's true white
+    # NOTE: Only set cell to as a space if it's true white
     return blue == 255 and green == 255 and red == 255
 
 
