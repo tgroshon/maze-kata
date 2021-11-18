@@ -5,18 +5,16 @@ Quickstart:
 1. Install python requirements: `pip install -r pip-requirements.dev.txt`
 2. Run CLI: `python3 maze_kata/cli.py <file>`
 3. Run tests: `pytest`
-4. Run test coverage: `pytest --cov=maze_kata.lib --cov-branch --cov-report term-missing`
 
 ```
------------ coverage: platform linux, python 3.9.5-final-0 -----------
-Name                         Stmts   Miss Branch BrPart  Cover   Missing
-------------------------------------------------------------------------
-maze_kata/lib/__init__.py        0      0      0      0   100%
-maze_kata/lib/digitizer.py      36      7      4      0    78%   14-16, 21-26
-maze_kata/lib/maze.py           64      0     16      0   100%
-maze_kata/lib/solver.py         35      0     24      2    97%   37->51, 40->43
-------------------------------------------------------------------------
-TOTAL                          135      7     44      2    94%
+Usage: cli.py [OPTIONS] FILE
+
+  Analyze an image of a maze grid and output a solution image.
+
+Options:
+  --output TEXT  Override path of solution: defaults 'solution.png'
+  --help         Show this message and exit.
+
 ```
 
 ## Part 1: Approach Walkthrough
@@ -163,3 +161,32 @@ complexity as the primary DFS traversal.
 ### Analysis Story 3
 
 _TODO: Breakdown the ship maze with collision model user stories._
+
+## Testing Stats
+
+Latest coverage report for command: `pytest --cov=maze_kata.lib --cov-branch --cov-report term-missing`
+
+```
+----------- coverage: platform linux, python 3.9.5-final-0 -----------
+Name                         Stmts   Miss Branch BrPart  Cover   Missing
+------------------------------------------------------------------------
+maze_kata/lib/__init__.py        0      0      0      0   100%
+maze_kata/lib/digitizer.py      36      7      4      0    78%   14-16, 21-26
+maze_kata/lib/maze.py           64      0     16      0   100%
+maze_kata/lib/solver.py         35      0     24      2    97%   37->51, 40->43
+------------------------------------------------------------------------
+TOTAL                          135      7     44      2    94%
+```
+
+Complex maze benchmark:
+
+```
+$ time python3 maze_kata/cli.py assets/us6_complex.png
+Parsed a 10x10 maze.
+Solution found! Outputting solved maze to solution.png
+Done.
+
+real    0m0.123s
+user    0m0.291s
+sys     0m0.563s
+```
