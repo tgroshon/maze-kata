@@ -1,12 +1,13 @@
 import unittest
+import os
 import cv2 as cv
 from ..lib.digitizer import parse_maze_data
 
-SINGLE_ROW_IMG = "./assets/single_row_us1.png"
-HALLWAY_IMG = "./assets/hallway_us2.png"
-ROOM_IMG = "./assets/room_us3.png"
-WINDING_IMG = "./assets/winding_path_us4.png"
-DEADENDS_IMG = "./assets/simple_maze_us5.png"
+SINGLE_ROW_IMG = os.path.join("assets", "us1_single_row.png")
+HALLWAY_IMG = os.path.join("assets", "us2_hallway.png")
+ROOM_IMG = os.path.join("assets", "us3_room.png")
+WINDING_IMG = os.path.join("assets", "us4_winding.png")
+DEADENDS_IMG = os.path.join("assets", "us5_simple.png")
 
 
 class TestParseMaze(unittest.TestCase):
