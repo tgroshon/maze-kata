@@ -78,8 +78,8 @@ class Maze:
 
         left = (row, col - 1)
         right = (row, col + 1)
-        above = (row + 1, col)
-        below = (row - 1, col)
+        below = (row + 1, col)
+        above = (row - 1, col)
 
         return [
             neighbor
