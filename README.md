@@ -46,15 +46,19 @@ complexity as the primary DFS traversal.
 ### Analysis Story 3
 
 **User Story 1**: Identify turns that are too tight
+
 ![user story 1 collision](./assets/collision_stories/us1.png)
 
 **User Story 2**: Shift to the side when sufficient space
+
 ![user story 2 collision](./assets/collision_stories/us2.png)
 
 **User Story 3**: Turn ship around center of gravity
+
 ![user story 3 collision](./assets/collision_stories/us3.png)
 
 **User Story 4**: Plot path to valid exit where multiple exist
+
 ![user story 4 collision](./assets/collision_stories/us4.png)
 
 ## Testing Stats
