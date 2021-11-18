@@ -2,9 +2,10 @@
 
 Quickstart:
 
-1. Install python requirements: `pip install -r pip-requirements.txt`
+1. Install python requirements: `pip install -r pip-requirements.dev.txt`
 2. Run CLI: `python3 maze_kata/cli.py <file>`
 3. Run tests: `pytest`
+4. Run test coverage: `pytest --cov=maze_kata.lib --cov-branch --cov-report term-missing`
 
 When I first read the problem, I decided to make a list of questions I needed to
 answer:
@@ -89,6 +90,7 @@ My current solution makes a lot of assumptions, and has some clear constraints.
 Here are some of them:
 
 - Entire maze is known upfront
+- Mazes smaller than 32 x 44 because of naive digitizer
 - One entrance at the top, one exit at the bottom
 - Maze images are cropped to grids of fixed-size cells about 88x64 pixels
 - Only finds one solution path if multiple are available
@@ -131,6 +133,9 @@ dead-end filling enhancement). While the core of the algorithm, the DFS
 traversal, can be re-purposed to work for starting inside of an unknown maze and
 finding an exit, the rest of the program (especially the digitizer and maze
 utilities) would need rewritten.
+
+See more discussion about the assumptions and constraints of my solution in the
+narrative walkthrough.
 
 ### Analysis Story 2
 
