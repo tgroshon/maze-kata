@@ -17,7 +17,65 @@ Options:
 
 ```
 
-## Part 1: Approach Walkthrough
+## Reflection/Analysis
+
+### Analysis Story 1
+
+My solution appears to be a general-purpose solver, with ability to solve both
+perfect and imperfect mazes. My solver does expect to (a) start from outside
+rather than inside and (b) know the whole maze upfront (specifically for the
+dead-end filling enhancement). While the core of the algorithm, the DFS
+traversal, can be re-purposed to work for starting inside of an unknown maze and
+finding an exit, the rest of the program (especially the digitizer and maze
+utilities) would need rewritten.
+
+See more discussion about the assumptions and constraints of my solution in the
+narrative walkthrough.
+
+### Analysis Story 2
+
+At it's core, my approach is a depth-first search of the graph, with heuristics
+prioritizing downward motion. This means that the time complexity _of the
+traversal_ grows with the complexity of the maze: O(Vertices + Edges) in graph
+speak while the space complexity is O(Vertices). However, the process of
+building the Maze's intermediate representation is O(rows*columns) in both time
+and space. Then, adding in my enhancement of dead-end filling, it's the same
+complexity as the primary DFS traversal.
+
+### Analysis Story 3
+
+_TODO: Breakdown the ship maze with collision model user stories._
+
+## Testing Stats
+
+Latest coverage report for command: `pytest --cov=maze_kata.lib --cov-branch --cov-report term-missing`
+
+```
+----------- coverage: platform linux, python 3.9.5-final-0 -----------
+Name                         Stmts   Miss Branch BrPart  Cover   Missing
+------------------------------------------------------------------------
+maze_kata/lib/__init__.py        0      0      0      0   100%
+maze_kata/lib/digitizer.py      36      7      4      0    78%   14-16, 21-26
+maze_kata/lib/maze.py           64      0     16      0   100%
+maze_kata/lib/solver.py         35      0     24      2    97%   37->51, 40->43
+------------------------------------------------------------------------
+TOTAL                          135      7     44      2    94%
+```
+
+Complex maze benchmark:
+
+```
+$ time python3 maze_kata/cli.py assets/us6_complex.png
+Parsed a 10x10 maze.
+Solution found! Outputting solved maze to solution.png
+Done.
+
+real    0m0.123s
+user    0m0.291s
+sys     0m0.563s
+```
+
+## Appendix: Approach Walkthrough
 
 When I first read the problem, I decided to make a list of questions I needed to
 answer:
@@ -132,61 +190,3 @@ and then fill in the dead-spaces. NBD. /sarcasm
 But, the time-complexity should still be about the same. From near as I can
 tell, my dead-end filling algorithm is essentially just another graph traversal
 with O(V+E) but I'll have to think on it.
-
-## Part 2: Reflection/Analysis
-
-### Analysis Story 1
-
-My solution appears to be a general-purpose solver, with ability to solve both
-perfect and imperfect mazes. My solver does expect to (a) start from outside
-rather than inside and (b) know the whole maze upfront (specifically for the
-dead-end filling enhancement). While the core of the algorithm, the DFS
-traversal, can be re-purposed to work for starting inside of an unknown maze and
-finding an exit, the rest of the program (especially the digitizer and maze
-utilities) would need rewritten.
-
-See more discussion about the assumptions and constraints of my solution in the
-narrative walkthrough.
-
-### Analysis Story 2
-
-At it's core, my approach is a depth-first search of the graph, with heuristics
-prioritizing downward motion. This means that the time complexity _of the
-traversal_ grows with the complexity of the maze: O(Vertices + Edges) in graph
-speak while the space complexity is O(Vertices). However, the process of
-building the Maze's intermediate representation is O(rows*columns) in both time
-and space. Then, adding in my enhancement of dead-end filling, it's the same
-complexity as the primary DFS traversal.
-
-### Analysis Story 3
-
-_TODO: Breakdown the ship maze with collision model user stories._
-
-## Testing Stats
-
-Latest coverage report for command: `pytest --cov=maze_kata.lib --cov-branch --cov-report term-missing`
-
-```
------------ coverage: platform linux, python 3.9.5-final-0 -----------
-Name                         Stmts   Miss Branch BrPart  Cover   Missing
-------------------------------------------------------------------------
-maze_kata/lib/__init__.py        0      0      0      0   100%
-maze_kata/lib/digitizer.py      36      7      4      0    78%   14-16, 21-26
-maze_kata/lib/maze.py           64      0     16      0   100%
-maze_kata/lib/solver.py         35      0     24      2    97%   37->51, 40->43
-------------------------------------------------------------------------
-TOTAL                          135      7     44      2    94%
-```
-
-Complex maze benchmark:
-
-```
-$ time python3 maze_kata/cli.py assets/us6_complex.png
-Parsed a 10x10 maze.
-Solution found! Outputting solved maze to solution.png
-Done.
-
-real    0m0.123s
-user    0m0.291s
-sys     0m0.563s
-```
