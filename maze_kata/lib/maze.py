@@ -15,7 +15,7 @@ class Maze:
      - Adjacent means top, down, left, right. No diagonals.
     """
 
-    Shape = namedtuple("MazeShape", ("rows columns"))
+    Shape = namedtuple("Shape", ("rows columns"))
 
     def __init__(self, parsed_data):
         self._parsed_data = parsed_data
