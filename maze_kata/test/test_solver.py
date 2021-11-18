@@ -11,6 +11,18 @@ class TestSolve(unittest.TestCase):
         solution = solve(empty_maze)
         self.assertIsNone(solution, "Expected no solution for empty maze")
 
+    def test_solve_accepts_alternate_strategy(self):
+        one_step_data = [[False, False, True, False]]
+        one_step_maze = Maze(one_step_data)
+
+        class AltStrategy:
+            def solve(self, maze):
+                return ["Fake Solution"]
+
+        solution = solve(one_step_maze, AltStrategy())
+
+        self.assertEqual(solution, ["Fake Solution"])
+
     def test_finds_solution_for_one_step_maze(self):
         one_step_data = [[False, False, True, False]]
         one_step_maze = Maze(one_step_data)
