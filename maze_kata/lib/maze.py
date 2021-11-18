@@ -87,6 +87,12 @@ class Maze:
         the efficiency of the solving algorithm. Consider moving this code to
         the solver?
 
+        NOTE: Practical runs indicate that, due to the mazes the program
+        encounters, the priority should always be to:
+          1. Move downward.
+          2. When reaching a bottom wall, move side-to-side.
+          3. Almost never move up. Most solutions NEVER move up.
+
         """
         [row, col] = address
 
@@ -97,6 +103,6 @@ class Maze:
 
         return [
             neighbor
-            for neighbor in (left, right, above, below)
+            for neighbor in (above, left, right, below)
             if self.is_inbounds(neighbor) and self.get_cell(neighbor)
         ]
