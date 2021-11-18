@@ -125,3 +125,15 @@ class TestMaze(unittest.TestCase):
 
         self.assertFalse(maze.is_deadend(start))
         self.assertFalse(maze.is_deadend(end))
+
+    def test_cell_iter_2x3(self):
+        maze = Maze(data_2x3)
+        spaces = list(maze.cell_iter())
+        self.assertEqual(spaces, [(1, 2), (2, 2)])
+
+    def test_cell_iter_6x4(self):
+        maze = Maze(data_6x4)
+        spaces = list(maze.cell_iter())
+        self.assertEqual(
+            spaces, [(1, 2), (2, 2), (2, 3), (3, 2), (4, 2), (4, 3), (5, 3), (6, 3)]
+        )

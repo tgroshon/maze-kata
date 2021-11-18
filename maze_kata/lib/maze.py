@@ -16,6 +16,13 @@ class Maze:
     def __init__(self, parsed_data):
         self._parsed_data = parsed_data
 
+    def cell_iter(self):
+        for ri in range(self.shape.rows):
+            for ci in range(self.shape.columns):
+                cell = (ri + 1, ci + 1)
+                if self.get_cell(cell):
+                    yield cell
+
     @property
     def data(self):
         return self._parsed_data
