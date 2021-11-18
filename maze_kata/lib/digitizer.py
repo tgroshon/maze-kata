@@ -26,28 +26,40 @@ def generate_solution_image(input_img, solution):
     return input_img
 
 
-CELL_HEIGHT = 63  # ± 1 px
+CELL_HEIGHT = 64
 CELL_HEIGHT_MID = CELL_HEIGHT // 2
-CELL_WIDTH = 87  # ± 1 px
+CELL_WIDTH = 88
 CELL_WIDTH_MID = CELL_WIDTH // 2
 
 
 def parse_maze_data(cv_img):
-    """Parse an image into an intermediate representation of booleans representing maze spaces
+    """Parse an image into an intermediate representation of booleans representing
+       maze spaces.
 
     FIXME: unnecessarily storing full maze grid when only an adjacency list of
     the moveable cells matter
+
+    FIXME: Does not take borders into account, so it may incorrectly
+    approximate the grid size and centerpoints used for color sampling for
+    grids over 32 rows or 44 columns.
     """
     (h, w, _) = cv_img.shape
 
-    # floor division to get integers
-    rows = h // CELL_HEIGHT
-    columns = w // CELL_WIDTH
+    # rounded division to get approximation of how many cells can fit in each
+    # dimensions, with enough fudge for small pixel differences at the
+    # boundaries (like when I crop a user story image slightly too small)
+    rows = _rounded_int_divide(h, CELL_HEIGHT)
+    columns = _rounded_int_divide(w, CELL_WIDTH)
 
     return [
         [_identify_cell(cv_img, r + 1, c + 1) for c in range(columns)]
         for r in range(rows)
     ]
+
+
+def _rounded_int_divide(dividend, divisor):
+    """Integer division that rounds to the nearest whole number"""
+    return (dividend + divisor // 2) // divisor
 
 
 def _identify_cell(img, row_num, col_num):
