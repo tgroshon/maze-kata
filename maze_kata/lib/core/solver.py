@@ -48,6 +48,10 @@ class DefaultStrategy:
                 if neighbor not in visited:
                     stack.append(neighbor)
 
+        end_space = maze.get_end_space()
+        if end_space not in visited:
+            return None
+
         return list(visited)
 
     def fill_deadends(self, maze):

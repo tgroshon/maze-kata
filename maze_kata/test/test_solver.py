@@ -158,3 +158,19 @@ class TestDefaultSolver(unittest.TestCase):
         self.assertEqual(
             solution, [(1, 2), (2, 2), (3, 2), (4, 2), (5, 2), (5, 3), (5, 4), (6, 4)]
         )
+
+    def test_returns_none_for_unsolveable_maze(self):
+        strategy = DefaultStrategy()
+        maze = Maze(
+            [
+                [False, True, False, False, False],
+                [False, True, True, True, False],
+                [False, True, False, True, False],
+                [False, True, False, True, False],
+                [False, True, False, False, False],
+                [False, False, False, True, False],  # "exit" is cut-off from "start"
+            ]
+        )
+
+        solution = strategy.solve(maze)
+        self.assertIsNone(solution)
