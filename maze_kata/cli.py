@@ -8,10 +8,10 @@ from lib.solver import solve
 @click.option(
     "--output",
     default="solution.png",
-    help="Override path for solution image: defaults to 'solution.png' in current directory.",
+    help="Override path of solution: defaults 'solution.png'",
 )
 def main(**kwarg):
-    """Begin solving process."""
+    """Analyze an image of a maze grid and output a solution image."""
     img_filepath = kwarg.get("file")
     output_path = kwarg.get("output")
 
