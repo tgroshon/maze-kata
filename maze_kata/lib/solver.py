@@ -1,8 +1,13 @@
-def solve(maze):
+from collections import deque
+
+
+def solve(maze, strategy=None):
     if not maze.data:
         return None
 
-    strategy = DefaultStrategy()
+    if strategy is None:
+        strategy = DefaultStrategy()
+
     return strategy.solve(maze)
 
 
@@ -16,27 +21,24 @@ class DefaultStrategy:
           - Time: O(Vertices + Edges)
           - Space: O(Vertices)
 
-        FIXME: Naively returning the 'visited' data structure doesn't work
-        great for making a 'path', because it overreports steps for mazes with
-        rooms or deadends. Refactor to return the pruned steps to end.
-
-        FIXME: using a list for the `visited` data structure could make
-        membership checks less efficient than a set.
+        NOTE: Naively returning the 'visited' data structure works here because
+        we first fill all the dead-ends so that only valid paths remain. So
+        every visited node of depth-first search will be a valid step.
         """
         start_space = maze.get_start_space()
 
         if maze.shape.rows == 1:
             return [start_space]
 
-        visited = []
-        stack = [start_space]
+        visited = {}  # as of CPython3.6, dicts maintain key insertion order
+        stack = deque([start_space])
         self.fill_deadends(maze)
 
         while len(stack):
             address = stack.pop()
 
             if address not in visited:
-                visited.append(address)
+                visited[address] = None
 
             if maze.is_end(address):
                 """Break the loop we're done!"""
@@ -46,16 +48,16 @@ class DefaultStrategy:
                 if neighbor not in visited:
                     stack.append(neighbor)
 
-        return visited
+        return list(visited)
 
     def fill_deadends(self, maze):
         """Fill dead-ends so that they cannot be followed
 
-        NOTE: can be a costly operation. Consider breaking out into a separate
+        NOTE: Can be a costly operation. Consider breaking out into a separate
         strategy.
         """
         visited = set()
-        stack = [cell for cell in maze.cell_iter() if maze.is_deadend(cell)]
+        stack = deque([cell for cell in maze.cell_iter() if maze.is_deadend(cell)])
 
         while len(stack):
             address = stack.pop()
