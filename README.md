@@ -34,6 +34,8 @@ answer:
     - a solution is an ordered list of cell addresses
     - overlay red dots for each solution address on a copy of the original image
 
+## Part 1: Approach Walkthrough
+
 I decided I wanted the solution to be runnable from the beginning, both for
 debugging and in case a time constraint occurred I would be able to submit a
 working solution for whatever user stories I had accomplished to that point.
@@ -117,3 +119,29 @@ and then fill in the dead-spaces. NBD. /sarcasm
 But, the time-complexity should still be about the same. From near as I can
 tell, my dead-end filling algorithm is essentially just another graph traversal
 with O(V+E) but I'll have to think on it.
+
+## Part 2: Reflection/Analysis
+
+### Analysis Story 1
+
+My solution appears to be a general-purpose solver, with ability to solve both
+perfect and imperfect mazes. My solver does expect to (a) start from outside
+rather than inside and (b) know the whole maze upfront (specifically for the
+dead-end filling enhancement). While the core of the algorithm, the DFS
+traversal, can be re-purposed to work for starting inside of an unknown maze and
+finding an exit, the rest of the program (especially the digitizer and maze
+utilities) would need rewritten.
+
+### Analysis Story 2
+
+At it's core, my approach is a depth-first search of the graph, with heuristics
+prioritizing downward motion. This means that the time complexity _of the
+traversal_ grows with the complexity of the maze: O(Vertices + Edges) in graph
+speak while the space complexity is O(Vertices). However, the process of
+building the Maze's intermediate representation is O(rows*columns) in both time
+and space. Then, adding in my enhancement of dead-end filling, it's the same
+complexity as the primary DFS traversal.
+
+### Analysis Story 3
+
+_TODO: Breakdown the ship maze with collision model user stories._
