@@ -56,6 +56,15 @@ class Maze:
             row > 0 and col > 0 and row <= self.shape.rows and col <= self.shape.columns
         )
 
+    def fill_space(self, address):
+        if not self.is_inbounds(address):
+            raise Exception(
+                f"Attempting to fill a space that is not in bounds: {address}"
+            )
+
+        r, c = address
+        self.data[r - 1][c - 1] = False
+
     def get_start_space(self):
         """Address of first open space on the first row
 

@@ -137,3 +137,32 @@ class TestMaze(unittest.TestCase):
         self.assertEqual(
             spaces, [(1, 2), (2, 2), (2, 3), (3, 2), (4, 2), (4, 3), (5, 3), (6, 3)]
         )
+
+    def test_fill_space(self):
+        maze = Maze(
+            [
+                [False, True, False],
+                [False, True, False],
+            ]
+        )
+
+        maze.fill_space((1, 2))
+
+        self.assertEqual(
+            maze.data,
+            [
+                [False, False, False],
+                [False, True, False],
+            ],
+        )
+
+    def test_fill_space_out_bounds(self):
+        maze = Maze(
+            [
+                [False, True, False],
+                [False, True, False],
+            ]
+        )
+
+        with self.assertRaises(Exception):
+            maze.fill_space((1, 4))
