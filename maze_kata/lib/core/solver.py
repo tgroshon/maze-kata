@@ -60,7 +60,6 @@ class DefaultStrategy:
         NOTE: Can be a costly operation. Consider breaking out into a separate
         strategy.
         """
-        visited = set()
         stack = deque([cell for cell in maze.cell_iter() if maze.is_deadend(cell)])
 
         while len(stack):
