@@ -20,6 +20,9 @@ class DefaultStrategy:
         great for making a 'path', because it overreports steps for mazes with
         rooms or deadends. Refactor to return the pruned steps to end.
 
+        FIXME: using a list for the `visited` data structure could make
+        membership checks less efficient than a set.
+
         """
         start_space = maze.get_start_space()
 
