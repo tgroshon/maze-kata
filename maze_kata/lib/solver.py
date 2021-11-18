@@ -22,7 +22,6 @@ class DefaultStrategy:
 
         FIXME: using a list for the `visited` data structure could make
         membership checks less efficient than a set.
-
         """
         start_space = maze.get_start_space()
 
@@ -31,6 +30,7 @@ class DefaultStrategy:
 
         visited = []
         stack = [start_space]
+        self.fill_deadends(maze)
 
         while len(stack):
             address = stack.pop()
@@ -49,6 +49,11 @@ class DefaultStrategy:
         return visited
 
     def fill_deadends(self, maze):
+        """Fill dead-ends so that they cannot be followed
+
+        NOTE: can be a costly operation. Consider breaking out into a separate
+        strategy.
+        """
         visited = set()
         stack = [cell for cell in maze.cell_iter() if maze.is_deadend(cell)]
 
