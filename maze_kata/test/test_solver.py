@@ -96,3 +96,34 @@ class TestDefaultSolver(unittest.TestCase):
                 [False, False, False, True, False],
             ],
         )
+
+    def test_fill_deadends_recursively(self):
+        strategy = DefaultStrategy()
+        maze = Maze(
+            [
+                [False, True, False, False, False, False],
+                [False, True, False, True, True, False],
+                [False, True, False, False, True, False],
+                [False, True, True, True, True, True],
+                [False, True, False, False, True, False],
+                [False, True, True, True, False, False],
+                [False, True, False, True, False, False],
+                [False, False, False, True, False, False],
+            ]
+        )
+
+        strategy.fill_deadends(maze)
+
+        self.assertEqual(
+            maze.data,
+            [
+                [False, True, False, False, False, False],
+                [False, True, False, False, False, False],
+                [False, True, False, False, False, False],
+                [False, True, False, False, False, False],
+                [False, True, False, False, False, False],
+                [False, True, True, True, False, False],
+                [False, False, False, True, False, False],
+                [False, False, False, True, False, False],
+            ],
+        )
