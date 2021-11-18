@@ -3,9 +3,8 @@ import unittest
 import cv2 as cv
 import tempfile
 from ..lib.digitizer import (
-    digitize_maze_image,
+    parse_maze_image,
     output_solution_image,
-    parse_maze_data,
 )
 
 US1_SINGLE_ROW_IMG = os.path.join("assets", "us1_single_row.png")
@@ -18,11 +17,11 @@ US5_DEADENDS_IMG = os.path.join("assets", "us5_simple.png")
 
 class TestDigitizeIntegration(unittest.TestCase):
     def test_digitize_maze_us1(self):
-        maze = digitize_maze_image(US1_SINGLE_ROW_IMG)
+        maze = parse_maze_image(US1_SINGLE_ROW_IMG)
         self.assertEqual(maze.data, [[False, True, False, False, False, False, False]])
 
     def test_digitize_maze_us2(self):
-        maze = digitize_maze_image(US2_HALLWAY_IMG)
+        maze = parse_maze_image(US2_HALLWAY_IMG)
         self.assertEqual(
             maze.data,
             [
@@ -34,7 +33,7 @@ class TestDigitizeIntegration(unittest.TestCase):
         )
 
     def test_digitize_maze_us3(self):
-        maze = digitize_maze_image(US3_ROOM_IMG)
+        maze = parse_maze_image(US3_ROOM_IMG)
         self.assertEqual(
             maze.data,
             [
@@ -46,7 +45,7 @@ class TestDigitizeIntegration(unittest.TestCase):
         )
 
     def test_digitize_maze_us4(self):
-        maze = digitize_maze_image(US4_WINDING_IMG)
+        maze = parse_maze_image(US4_WINDING_IMG)
         self.assertEqual(
             maze.data,
             [
@@ -61,7 +60,7 @@ class TestDigitizeIntegration(unittest.TestCase):
         )
 
     def test_digitize_maze_us5(self):
-        maze = digitize_maze_image(US5_DEADENDS_IMG)
+        maze = parse_maze_image(US5_DEADENDS_IMG)
         self.assertEqual(
             maze.data,
             [
@@ -102,49 +101,3 @@ class TestOutputSolutionIntegration(unittest.TestCase):
             )
 
             self.assertSameImage(cv.imread(US3_ROOM_SOLUTION_IMG), cv.imread(fp.name))
-
-
-class TestParseMaze(unittest.TestCase):
-    @classmethod
-    def setUpClass(cls):
-        cls.hallway_img = cv.imread(US2_HALLWAY_IMG)
-        cls.deadends_img = cv.imread(US5_DEADENDS_IMG)
-
-    def test_hallway_asset_size(self):
-        data = parse_maze_data(self.hallway_img)
-
-        self.assertEqual(len(data), 4)
-        self.assertEqual(len(data[0]), 4)
-
-    def test_hallway_parse(self):
-        data = parse_maze_data(self.hallway_img)
-
-        self.assertEqual(
-            data,
-            [
-                [False, False, True, False],
-                [False, False, True, False],
-                [False, False, True, False],
-                [False, False, True, False],
-            ],
-        )
-
-    def test_deadends_asset_size(self):
-        data = parse_maze_data(self.deadends_img)
-
-        self.assertEqual(len(data), 6)
-        self.assertEqual(len(data[0]), 5)
-
-    def test_deadends_parse(self):
-        data = parse_maze_data(self.deadends_img)
-        self.assertEqual(
-            data,
-            [
-                [False, True, False, False, False],
-                [False, True, True, True, False],
-                [False, True, False, False, False],
-                [False, True, True, True, False],
-                [False, True, False, True, False],
-                [False, False, False, True, False],
-            ],
-        )

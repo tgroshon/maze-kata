@@ -1,6 +1,4 @@
 from collections import namedtuple
-from numpy import array_equal
-from dataclasses import dataclass
 
 
 class MalformedMazeError(Exception):

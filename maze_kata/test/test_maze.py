@@ -1,5 +1,5 @@
 import unittest
-from ..lib.maze import Maze, MalformedMazeError
+from ..lib.core import Maze, MalformedMazeError
 
 data_2x3 = [
     [False, True, False],

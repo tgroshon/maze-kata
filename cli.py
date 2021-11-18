@@ -1,6 +1,5 @@
 import click
-from maze_kata.lib.digitizer import digitize_maze_image, output_solution_image
-from maze_kata.lib.solver import solve
+from maze_kata.lib import digitizer, core
 
 
 @click.command()
@@ -15,13 +14,13 @@ def main(**kwarg):
     img_filepath = kwarg.get("file")
     output_path = kwarg.get("output")
 
-    maze = digitize_maze_image(img_filepath)
+    maze = digitizer.parse_maze_image(img_filepath)
     click.echo(f"Parsed a {maze.shape.rows}x{maze.shape.columns} maze.")
-    solution = solve(maze)
+    solution = core.solve(maze)
 
     if solution:
         click.echo(f"Solution found! Outputting solved maze to {output_path}")
-        output_solution_image(img_filepath, output_path, solution)
+        digitizer.output_solution_image(img_filepath, output_path, solution)
         click.echo("Done.")
     else:
         click.echo("No solution found.")

@@ -1,6 +1,5 @@
 import unittest
-from ..lib.solver import solve, DefaultStrategy
-from ..lib.maze import Maze
+from ..lib.core import solve, DefaultStrategy, Maze
 
 
 class TestSolve(unittest.TestCase):
