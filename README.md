@@ -95,20 +95,20 @@ sys     0m0.563s
 When I first read the problem, I decided to make a list of questions I needed to
 answer:
 
-1. What cells are moveable spaces?
+1. Which cells are spaces?
     - white cells are spaces; black cells are walls
 2. What spaces are a valid move target?
     - non-diagonal adjacent spaces
 3. How do I identify a decision (branch) point?
     - 2 unvisited move targets
-4. How do I choose the next step?
+4. How can I choose the next step?
+    - random?
     - wall following (put your right hand on the wall and follow it)
 5. How do I identify a deadend?
     - only 1 adjacent space
 6. When reaching a deadend, what do I do?
-    - Fill it?
     - move to the prior decision point
-    - suggests a stack of branch points
+    - could suggest a stack of branch points
         - 'put' when reaching a new decision point
         - 'peek' when backtracking
         - 'pop' when all decision paths exhausted
@@ -118,7 +118,7 @@ answer:
       "spaces" or "walls"
 8. How do I output a solution?
     - a solution is an ordered list of cell addresses
-    - overlay red dots for each solution address on a copy of the original image
+    - overlay markings for each solution address on a copy of the original image
 
 
 I decided I wanted the solution to be runnable from the beginning, both for
