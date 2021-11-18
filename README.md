@@ -7,6 +7,20 @@ Quickstart:
 3. Run tests: `pytest`
 4. Run test coverage: `pytest --cov=maze_kata.lib --cov-branch --cov-report term-missing`
 
+```
+----------- coverage: platform linux, python 3.9.5-final-0 -----------
+Name                         Stmts   Miss Branch BrPart  Cover   Missing
+------------------------------------------------------------------------
+maze_kata/lib/__init__.py        0      0      0      0   100%
+maze_kata/lib/digitizer.py      36      7      4      0    78%   14-16, 21-26
+maze_kata/lib/maze.py           64      0     16      0   100%
+maze_kata/lib/solver.py         35      0     24      2    97%   37->51, 40->43
+------------------------------------------------------------------------
+TOTAL                          135      7     44      2    94%
+```
+
+## Part 1: Approach Walkthrough
+
 When I first read the problem, I decided to make a list of questions I needed to
 answer:
 
@@ -35,7 +49,6 @@ answer:
     - a solution is an ordered list of cell addresses
     - overlay red dots for each solution address on a copy of the original image
 
-## Part 1: Approach Walkthrough
 
 I decided I wanted the solution to be runnable from the beginning, both for
 debugging and in case a time constraint occurred I would be able to submit a
