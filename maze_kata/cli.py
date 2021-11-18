@@ -21,7 +21,7 @@ def main(**kwarg):
 
     if solution:
         click.echo(f"Solution found! Outputting solved maze to {output_path}")
-        output_solution_image(img_filepath, output_path, maze, solution)
+        output_solution_image(img_filepath, output_path, solution)
         click.echo("Done.")
     else:
         click.echo("No solution found.")

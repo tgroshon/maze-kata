@@ -9,7 +9,7 @@ def digitize_maze_image(img_path):
     return Maze(maze_data)
 
 
-def output_solution_image(input_path, output_path, maze, solution):
+def output_solution_image(input_path, output_path, solution):
     """Write the maze solution to an image at output path"""
     input_img = cv.imread(input_path)
     output_img = generate_solution_image(input_img, solution)
