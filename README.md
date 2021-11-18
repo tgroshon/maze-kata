@@ -7,6 +7,7 @@ Quickstart:
 3. Run tests: `pytest`
 
 ```
+$ python3 maze_kata/cli.py --help
 Usage: cli.py [OPTIONS] FILE
 
   Analyze an image of a maze grid and output a solution image.
