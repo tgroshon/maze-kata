@@ -28,45 +28,52 @@ class Maze:
         return self._shape
 
     def is_end(self, address):
+        """Does address match the end space?"""
         return address == self.get_end_space()
 
     def is_start(self, address):
+        """Does address match the start space?"""
         return address == self.get_start_space()
 
     def is_deadend(self, address):
+        """Is the given address a cell a deadend?"""
         if self.is_end(address) or self.is_start(address):
             return False
 
         return len(self.get_adjacent_spaces(address)) <= 1
 
     def is_inbounds(self, address):
+        """Is a given address in the bounds of the maze?"""
         row, col = address
         return (
             row > 0 and col > 0 and row <= self.shape.rows and col <= self.shape.columns
         )
 
-    def get_row(self, row_num):
-        if row_num <= 0:
-            raise Exception(f"Rows are 1-based, got: {row_num}")
-
-        return self.data[row_num - 1]
-
     def get_start_space(self):
-        idx = self.get_row(1).index(True)
+        """Address of first open space on the first row
+
+        NOTE: assumes that there is only one entrance
+        """
+        idx = self.data[0].index(True)
         if not idx:
             return None
 
         return (1, idx + 1)
 
     def get_end_space(self):
+        """Address of first open space on the last row
+
+        NOTE: assumes that there is only one exit
+        """
         last_row = self.shape.rows
-        idx = self.get_row(last_row).index(True)
+        idx = self.data[last_row - 1].index(True)
         if not idx:
             return None
 
         return (last_row, idx + 1)
 
     def get_cell(self, address):
+        """Get contents of cell at address"""
         if not self.is_inbounds(address):
             return None
 
@@ -74,6 +81,13 @@ class Maze:
         return self.data[row - 1][col - 1]
 
     def get_adjacent_spaces(self, address):
+        """List all space addresses adjacent to given address
+
+        NOTE: the ordering returned by this method has significant bearing on
+        the efficiency of the solving algorithm. Consider moving this code to
+        the solver?
+
+        """
         [row, col] = address
 
         left = (row, col - 1)
