@@ -1,5 +1,5 @@
 import unittest
-from ..lib.maze import Maze
+from ..lib.maze import Maze, MalformedMazeError
 
 data_2x3 = [
     [False, True, False],
@@ -35,6 +35,18 @@ class TestMaze(unittest.TestCase):
         start = maze.get_start_space()
 
         self.assertEqual(start, (1, 2))
+
+    def test_get_start_space_raises_for_no_start(self):
+        maze = Maze(
+            [
+                [False, False, False],
+                [False, True, False],
+                [False, True, False],
+            ]
+        )
+
+        with self.assertRaises(MalformedMazeError):
+            maze.get_start_space()
 
     def test_is_inbounds_right(self):
         maze = Maze(data_2x3)
@@ -95,6 +107,18 @@ class TestMaze(unittest.TestCase):
         end = maze.get_end_space()
 
         self.assertEqual(end, (6, 3))
+
+    def test_get_end_space_raises_for_no_start(self):
+        maze = Maze(
+            [
+                [False, True, False],
+                [False, True, False],
+                [False, False, False],
+            ]
+        )
+
+        with self.assertRaises(MalformedMazeError):
+            maze.get_end_space()
 
     def test_is_start(self):
         maze = Maze(data_6x4)

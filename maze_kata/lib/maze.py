@@ -3,6 +3,10 @@ from numpy import array_equal
 from dataclasses import dataclass
 
 
+class MalformedMazeError(Exception):
+    pass
+
+
 class Maze:
     """Intermediate representation of a maze
 
@@ -57,6 +61,7 @@ class Maze:
         )
 
     def fill_space(self, address):
+        """MUTATES the maze data by setting an address to be a wall; idempotent"""
         if not self.is_inbounds(address):
             raise Exception(
                 f"Attempting to fill a space that is not in bounds: {address}"
@@ -70,11 +75,11 @@ class Maze:
 
         NOTE: assumes that there is only one entrance
         """
-        idx = self.data[0].index(True)
-        if not idx:
-            return None
-
-        return (1, idx + 1)
+        try:
+            idx = self.data[0].index(True)
+            return (1, idx + 1)
+        except ValueError:
+            raise MalformedMazeError("Missing Start. No space found on the first row.")
 
     def get_end_space(self):
         """Address of first open space on the last row
@@ -82,11 +87,11 @@ class Maze:
         NOTE: assumes that there is only one exit
         """
         last_row = self.shape.rows
-        idx = self.data[last_row - 1].index(True)
-        if not idx:
-            return None
-
-        return (last_row, idx + 1)
+        try:
+            idx = self.data[last_row - 1].index(True)
+            return (last_row, idx + 1)
+        except ValueError:
+            raise MalformedMazeError("Missing End. No space found on the last row.")
 
     def get_cell(self, address):
         """Get contents of cell at address"""
