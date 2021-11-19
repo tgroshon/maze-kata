@@ -112,6 +112,10 @@ TOTAL                          135      7     44      2    94%
 Complex maze benchmark:
 
 ```
+$ python3 benchmark.py
+Solver with DefaultStrategy benchmark 100x:  0.0322987970002941
+Full pipeline Load->Solve->Output 100x:      1.4854517479998322
+
 $ time python3 cli.py assets/us6_complex.png
 Parsed a 10x10 maze.
 Solution found! Outputting solved maze to solution.png
