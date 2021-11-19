@@ -1,5 +1,7 @@
 # maze-kata
 
+![CI Checks](https://github.com/tgroshon/maze-kata/actions/workflows/python-ci.yml/badge.svg)
+
 Quickstart:
 
 1. Install python requirements: `pip install -r pip-requirements.dev.txt`
