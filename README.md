@@ -35,6 +35,32 @@ utilities) would need rewritten.
 See more discussion about the assumptions and constraints of my solution in the
 narrative walkthrough.
 
+See my solution outputs:
+
+**User Story 1**: Single Row, find space
+
+![user story 1 solution](./assets/solutions/us1_single_solution.png)
+
+**User Story 2**: Walk down a hallway
+
+![user story 2 solution](./assets/solutions/us2_hallway_solution.png)
+
+**User Story 3**: Escape a room
+
+![user story 3 solution](./assets/solutions/us3_room_solution.png)
+
+**User Story 4**: follow a winding path
+
+![user story 4 solution](./assets/solutions/us4_winding_solution.png)
+
+**User Story 5**: Beware dead-ends
+
+![user story 5 solution](./assets/solutions/us5_simple_solution.png)
+
+**Final**: Solve a complex maze with many dead-ends
+
+![user story 6 solution](./assets/solutions/us6_complex_solution.png)
+
 ### Analysis Story 2
 
 At it's core, my approach is a depth-first search of the graph, with heuristics
@@ -46,6 +72,10 @@ and space. Then, adding in my enhancement of dead-end filling, it's the same
 complexity as the primary DFS traversal.
 
 ### Analysis Story 3
+
+If I were going do a similar maze solver but for a 1x3 ship that had to take
+into account a collision model and select from multiple exits based on size and
+movement constraints, I would break down the work like this:
 
 **User Story 1**: Identify turns that are too tight
 
