@@ -140,7 +140,7 @@ class TestDefaultSolver(unittest.TestCase):
         )
 
     def test_imperfect_maze(self):
-        """solver finds one solution in a maze with a loop"""
+        """strategy finds one solution in a maze with a loop"""
         strategy = DefaultStrategy()
         maze = Maze(
             [
@@ -160,6 +160,7 @@ class TestDefaultSolver(unittest.TestCase):
         )
 
     def test_returns_none_for_unsolveable_maze(self):
+        """Strategy identifies unsolveable maze"""
         strategy = DefaultStrategy()
         maze = Maze(
             [
@@ -177,9 +178,8 @@ class TestDefaultSolver(unittest.TestCase):
 
 
 class TestImprovedStrategy(unittest.TestCase):
-    @unittest.skip("Known to break")
     def test_removes_backtracking(self):
-        """solver finds one solution in a maze with a loop"""
+        """Strategy removes backtracked steps from solution"""
         strategy = ImprovedStrategy()
         maze = Maze(
             [
@@ -199,7 +199,7 @@ class TestImprovedStrategy(unittest.TestCase):
         )
 
     def test_imperfect_maze(self):
-        """solver finds one solution in a maze with a loop"""
+        """Strategy finds one solution in a maze with a loop"""
         strategy = ImprovedStrategy()
         maze = Maze(
             [
@@ -219,6 +219,7 @@ class TestImprovedStrategy(unittest.TestCase):
         )
 
     def test_returns_none_for_unsolveable_maze(self):
+        """Strategy identifies unsolveable maze"""
         strategy = ImprovedStrategy()
         maze = Maze(
             [
