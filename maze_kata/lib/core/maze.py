@@ -36,6 +36,9 @@ class Maze:
 
         return self._shape
 
+    def is_branch(self, address):
+        return len(self.get_adjacent_spaces(address)) > 2
+
     def is_end(self, address):
         """Does address match the end space?"""
         return address == self.get_end_space()

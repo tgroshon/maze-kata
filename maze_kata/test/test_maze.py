@@ -190,3 +190,25 @@ class TestMaze(unittest.TestCase):
 
         with self.assertRaises(Exception):
             maze.fill_space((1, 4))
+
+    def test_is_branch_false_on_path(self):
+        maze = Maze(
+            [
+                [False, True, False, False],
+                [False, True, False, False],
+                [False, True, False, False],
+            ]
+        )
+
+        self.assertFalse(maze.is_branch((2, 2)), "Expected not to be a branch")
+
+    def test_is_branch_true_on_branch(self):
+        maze = Maze(
+            [
+                [False, True, False, False],
+                [False, True, True, False],
+                [False, True, False, False],
+            ]
+        )
+
+        self.assertTrue(maze.is_branch((2, 2)), "Expected to be a branch")

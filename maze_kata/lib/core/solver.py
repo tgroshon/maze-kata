@@ -11,6 +11,12 @@ def solve(maze, strategy=None):
     return strategy.solve(maze)
 
 
+def _drop_keys_from_dict(keys, d):
+    for k in keys:
+        d.pop(k)
+    return d
+
+
 class ImprovedStrategy:
     def solve(self, maze):
         """Improved DFS Search"""
@@ -21,26 +27,38 @@ class ImprovedStrategy:
 
         visited = {}  # as of CPython3.6, dicts maintain key insertion order
         stack = deque([start_space])
+        branch_steps = []
+        route = {}
 
         while len(stack):
             address = stack.pop()
 
+            branch_steps.append(address)
+
             if address not in visited:
+                route[address] = None
                 visited[address] = None
 
             if maze.is_end(address):
                 """Break the loop we're done!"""
                 break
 
+            if maze.is_deadend(address):
+                _drop_keys_from_dict(branch_steps, route)
+                branch_steps.clear()
+
+            if maze.is_branch(address):
+                branch_steps.clear()
+
             for neighbor in maze.get_adjacent_spaces(address):
                 if neighbor not in visited:
                     stack.append(neighbor)
 
         end_space = maze.get_end_space()
-        if end_space not in visited:
+        if end_space not in route:
             return None
 
-        return list(visited)
+        return list(route)
 
 
 class DefaultStrategy:
