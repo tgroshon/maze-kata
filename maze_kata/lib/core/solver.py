@@ -11,6 +11,38 @@ def solve(maze, strategy=None):
     return strategy.solve(maze)
 
 
+class ImprovedStrategy:
+    def solve(self, maze):
+        """Improved DFS Search"""
+        start_space = maze.get_start_space()
+
+        if maze.shape.rows == 1:
+            return [start_space]
+
+        visited = {}  # as of CPython3.6, dicts maintain key insertion order
+        stack = deque([start_space])
+
+        while len(stack):
+            address = stack.pop()
+
+            if address not in visited:
+                visited[address] = None
+
+            if maze.is_end(address):
+                """Break the loop we're done!"""
+                break
+
+            for neighbor in maze.get_adjacent_spaces(address):
+                if neighbor not in visited:
+                    stack.append(neighbor)
+
+        end_space = maze.get_end_space()
+        if end_space not in visited:
+            return None
+
+        return list(visited)
+
+
 class DefaultStrategy:
     def solve(self, maze):
         """Basically a naive depth-first search

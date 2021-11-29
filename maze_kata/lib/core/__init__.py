@@ -1,2 +1,2 @@
 from .maze import MalformedMazeError, Maze
-from .solver import solve, DefaultStrategy
+from .solver import solve, DefaultStrategy, ImprovedStrategy
