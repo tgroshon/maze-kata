@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 import click
 from maze_kata.lib import digitizer, core
 
