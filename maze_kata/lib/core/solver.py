@@ -13,7 +13,7 @@ def solve(maze, strategy=None):
 
 def _drop_keys_from_dict(keys, d):
     for k in keys:
-        d.pop(k)
+        del d[k]
     return d
 
 
