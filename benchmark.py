@@ -33,13 +33,18 @@ def get_callable_for_improved_strategy_solver():
 
 
 if __name__ == "__main__":
+    print("Running benchmarks...\n")
+    print("-" * 47)
     result = timeit.timeit(get_callable_for_solver(), number=100)
-    print("Solver with DefaultStrategy benchmark 100x:", result)
+    print("| {:<20} | {:<20} |".format("DefaultStrategy", result))
+    print("-" * 47)
 
     result = timeit.timeit(get_callable_for_improved_strategy_solver(), number=100)
-    print("Solver with ImprovedStrategy benchmark 100x:", result)
+    print("| {:<20} | {:<20} |".format("ImprovedStrategy", result))
+    print("-" * 47)
 
     result = timeit.timeit(run_full_pipeline, number=100)
-    print("Full pipeline Load->Solve->Output 100x:", result)
+    print("| {:<20} | {:<20} |".format("Full Pipeline", result))
+    print("-" * 47)
 
-    print("Done.")
+    print("\nDone.")
