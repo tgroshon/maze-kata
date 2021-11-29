@@ -17,7 +17,7 @@ def _drop_keys_from_dict(keys, d):
     return d
 
 
-class ImprovedStrategy:
+class SelfPruningStrategy:
     def solve(self, maze):
         """Improved DFS Search"""
         start_space = maze.get_start_space()

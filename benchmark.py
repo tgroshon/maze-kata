@@ -27,7 +27,7 @@ def get_callable_for_improved_strategy_solver():
     maze = digitizer.parse_maze_image(INPUT_IMG_PATH)
 
     def run_solver():
-        core.solve(maze, core.ImprovedStrategy())
+        core.solve(maze, core.SelfPruningStrategy())
 
     return run_solver
 
@@ -40,7 +40,7 @@ if __name__ == "__main__":
     print("-" * 47)
 
     result = timeit.timeit(get_callable_for_improved_strategy_solver(), number=100)
-    print("| {:<20} | {:<20} |".format("ImprovedStrategy", result))
+    print("| {:<20} | {:<20} |".format("SelfPruningStrategy", result))
     print("-" * 47)
 
     result = timeit.timeit(run_full_pipeline, number=100)

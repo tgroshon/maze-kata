@@ -1,5 +1,5 @@
 import unittest
-from ..lib.core import solve, DefaultStrategy, ImprovedStrategy, Maze
+from ..lib.core import solve, DefaultStrategy, SelfPruningStrategy, Maze
 
 
 class TestSolve(unittest.TestCase):
@@ -177,10 +177,10 @@ class TestDefaultSolver(unittest.TestCase):
         self.assertIsNone(solution)
 
 
-class TestImprovedStrategy(unittest.TestCase):
+class TestSelfPruningStrategy(unittest.TestCase):
     def test_removes_backtracking(self):
         """Strategy removes backtracked steps from solution"""
-        strategy = ImprovedStrategy()
+        strategy = SelfPruningStrategy()
         maze = Maze(
             [
                 [False, True, False, False, False],
@@ -200,7 +200,7 @@ class TestImprovedStrategy(unittest.TestCase):
 
     def test_imperfect_maze(self):
         """Strategy finds one solution in a maze with a loop"""
-        strategy = ImprovedStrategy()
+        strategy = SelfPruningStrategy()
         maze = Maze(
             [
                 [False, True, False, False, False],
@@ -220,7 +220,7 @@ class TestImprovedStrategy(unittest.TestCase):
 
     def test_returns_none_for_unsolveable_maze(self):
         """Strategy identifies unsolveable maze"""
-        strategy = ImprovedStrategy()
+        strategy = SelfPruningStrategy()
         maze = Maze(
             [
                 [False, True, False, False, False],
