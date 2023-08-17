@@ -80,19 +80,22 @@ Put it all together and solve a large complex maze:
 
 ## Reflection/Analysis
 
-At it's core, my approach is a depth-first search of the graph, with heuristics
-prioritizing downward motion. This means that the time complexity _of the
-traversal_ grows with the complexity of the maze: O(Vertices + Edges) in graph
-speak while the space complexity is O(Vertices). However, the process of
-building the Maze's intermediate representation is O(rows*columns) in both time
-and space. Then, adding in my enhancement of dead-end filling, it's the same
-complexity as the primary DFS traversal.
+At it's core, my approach is a depth-first search of a graph constructed of
+adjacent spaces, with heuristics prioritizing downward motion. This means that
+the time complexity _of the traversal_ grows with the complexity of the maze:
+O(Vertices + Edges) in graph speak while the space complexity is O(Vertices).
+However, the process of building the Maze's intermediate representation is
+O(rows*columns) in both time and space. Then, adding in my enhancement of
+dead-end filling, it's the same complexity as the primary DFS traversal.
 
 This solution is a general-purpose solver for mazes of the supplied format, with
 ability to solve both perfect and imperfect mazes.
 
 My solver does expect to (a) start from outside rather than inside and (b) know
 the whole maze upfront (specifically for the dead-end filling enhancement).
+
+Additionally, my tool reads and writes _actual PNG image files_, of the format
+given in the user stories: fixed-sized grids of 88x64 pixel rectangles.
 
 While the core of the algorithm, the DFS traversal, can be re-purposed to work
 for starting inside of an unknown maze and finding an exit, the rest of the
@@ -243,9 +246,9 @@ My current solution makes a lot of assumptions, and has some clear constraints.
 Here are some of them:
 
 - Entire maze is known upfront
-- Mazes smaller than 32 x 44 because of naive digitizer
 - One entrance at the top, one exit at the bottom
-- Maze images are cropped to grids of fixed-size cells about 88x64 pixels
+- Maze images are standardized to grids of fixed-size cells about 88x64 pixels
+- Mazes must be smaller than 32 x 44 because of naive digitizer which accumulates sizing errors as the maze grows
 - Only finds one solution path if multiple are available
 - Does not guarantee the shortest path
 - Time complexity grows with the complexity of the maze: O(Vertices + Edges) in graph speak
