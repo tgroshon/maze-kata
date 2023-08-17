@@ -27,7 +27,8 @@ following. Don’t get started yet -- make sure to read the background and the
 user stories first.
 
 Don’t worry about building the perfect solution. (Gold-plating is not a plus.)
-Instead, your solution will be graded on the following criteria in this order:
+
+Instead, your solution prioritize the following items, in this order:
 
 - Demonstrated approach to testing and validation best practices (unit,
 integration, end-to-end, etc)
