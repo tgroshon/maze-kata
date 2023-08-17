@@ -20,17 +20,82 @@ Options:
 
 ```
 
+## Kata and Goals
+
+You are going to be building a maze solver for simple mazes such as the
+following. Don’t get started yet -- make sure to read the background and the
+user stories first.
+
+Don’t worry about building the perfect solution. (Gold-plating is not a plus.)
+Instead, your solution will be graded on the following criteria in this order:
+
+- Demonstrated approach to testing and validation best practices (unit,
+integration, end-to-end, etc)
+- Software craftsmanship including, but not limited to, clean code practices,
+SOLID principles, KISS, refactoring, and maintainability
+- Solving each user story incrementally instead of attempting to solve the whole
+problem in one go (preference is 1+ commit per user story)
+- Demonstration of problem solving approach, for example, through commit
+  comments
+- Algorithmic approach
+
+### User Stories
+
+#### User Story 1
+
+Find the “empty” space in a single-row input such as the following:
+
+![single row](./assets/us1_single_row.png)
+
+#### User Story 2
+
+Walk through a “hallway” maze such as:
+
+![hallway](./assets/us2_hallway.png)
+
+#### User Story 3
+
+Find a way into and out of rooms such as:
+
+![simple room](./assets/us3_room.png)
+
+#### User Story 4
+
+Follow winding paths:
+
+![winding path](./assets/us4_winding.png)
+
+#### User Story 5
+
+Bypass deadends:
+
+![deadends](./assets/us5_simple.png)
+
+#### User Story 6
+
+Large complex maze:
+
+![complex maze](./assets/us6_complex.png)
+
 ## Reflection/Analysis
 
-### Analysis Story 1
+At it's core, my approach is a depth-first search of the graph, with heuristics
+prioritizing downward motion. This means that the time complexity _of the
+traversal_ grows with the complexity of the maze: O(Vertices + Edges) in graph
+speak while the space complexity is O(Vertices). However, the process of
+building the Maze's intermediate representation is O(rows*columns) in both time
+and space. Then, adding in my enhancement of dead-end filling, it's the same
+complexity as the primary DFS traversal.
 
-My solution appears to be a general-purpose solver, with ability to solve both
-perfect and imperfect mazes. My solver does expect to (a) start from outside
-rather than inside and (b) know the whole maze upfront (specifically for the
-dead-end filling enhancement). While the core of the algorithm, the DFS
-traversal, can be re-purposed to work for starting inside of an unknown maze and
-finding an exit, the rest of the program (especially the digitizer and maze
-utilities) would need rewritten.
+This solution is a general-purpose solver for mazes of the supplied format, with
+ability to solve both perfect and imperfect mazes.
+
+My solver does expect to (a) start from outside rather than inside and (b) know
+the whole maze upfront (specifically for the dead-end filling enhancement).
+
+While the core of the algorithm, the DFS traversal, can be re-purposed to work
+for starting inside of an unknown maze and finding an exit, the rest of the
+program (especially the digitizer and maze utilities) would need rewritten.
 
 See more discussion about the assumptions and constraints of my solution in the
 narrative walkthrough.
@@ -60,38 +125,6 @@ See my solution outputs:
 **Final**: Solve a complex maze with many dead-ends
 
 ![user story 6 solution](./assets/solutions/us6_complex_solution.png)
-
-### Analysis Story 2
-
-At it's core, my approach is a depth-first search of the graph, with heuristics
-prioritizing downward motion. This means that the time complexity _of the
-traversal_ grows with the complexity of the maze: O(Vertices + Edges) in graph
-speak while the space complexity is O(Vertices). However, the process of
-building the Maze's intermediate representation is O(rows*columns) in both time
-and space. Then, adding in my enhancement of dead-end filling, it's the same
-complexity as the primary DFS traversal.
-
-### Analysis Story 3
-
-If I were going do a similar maze solver but for a 1x3 ship that had to take
-into account a collision model and select from multiple exits based on size and
-movement constraints, I would break down the work like this:
-
-**User Story 1**: Identify turns that are too tight
-
-![user story 1 collision](./assets/collision_stories/us1.png)
-
-**User Story 2**: Shift to the side when sufficient space
-
-![user story 2 collision](./assets/collision_stories/us2.png)
-
-**User Story 3**: Turn ship around center of gravity
-
-![user story 3 collision](./assets/collision_stories/us3.png)
-
-**User Story 4**: Plot path to valid exit where multiple exist
-
-![user story 4 collision](./assets/collision_stories/us4.png)
 
 ## Testing Stats
 
@@ -128,7 +161,7 @@ sys     0m0.563s
 
 ## Appendix: Approach Walkthrough
 
-When I first read the problem, I decided to make a list of questions I needed to
+When I first read the kata, I decided to make a list of questions I needed to
 answer:
 
 1. Which cells are spaces?
@@ -155,7 +188,6 @@ answer:
 8. How do I output a solution?
     - a solution is an ordered list of cell addresses
     - overlay markings for each solution address on a copy of the original image
-
 
 I decided I wanted the solution to be runnable from the beginning, both for
 debugging and in case a time constraint occurred I would be able to submit a
