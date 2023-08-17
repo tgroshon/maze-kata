@@ -74,7 +74,7 @@ Bypass deadends:
 
 #### User Story 6
 
-Large complex maze:
+Put it all together and solve a large complex maze:
 
 ![complex maze](./assets/us6_complex.png)
 
