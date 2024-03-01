@@ -22,20 +22,16 @@ Options:
 
 ## Kata and Goals
 
-You are going to be building a maze solver for simple mazes such as the
-following. Don’t get started yet -- make sure to read the background and the
-user stories first.
+Build a maze solver for simple mazes such as the following. Read the background
+and the user stories for use cases. Don’t need to build the perfect solution.
 
-Don’t worry about building the perfect solution. (Gold-plating is not a plus.)
-
-Instead, your solution prioritize the following items, in this order:
+Instead, the solution prioritize the following items, in this order:
 
 - Demonstrated approach to testing and validation best practices (unit,
-integration, end-to-end, etc)
-- Software craftsmanship including, but not limited to, clean code practices,
-SOLID principles, KISS, refactoring, and maintainability
+  integration, end-to-end, etc)
+- Software craftsmanship including KISS, refactoring, and maintainability
 - Solving each user story incrementally instead of attempting to solve the whole
-problem in one go (preference is 1+ commit per user story)
+  problem in one go.
 - Demonstration of problem solving approach, for example, through commit
   comments
 - Algorithmic approach
@@ -83,10 +79,10 @@ Put it all together and solve a large complex maze:
 At it's core, my approach is a depth-first search of a graph constructed of
 adjacent spaces, with heuristics prioritizing downward motion. This means that
 the time complexity _of the traversal_ grows with the complexity of the maze:
-O(Vertices + Edges) in graph speak while the space complexity is O(Vertices).
-However, the process of building the Maze's intermediate representation is
-O(rows*columns) in both time and space. Then, adding in my enhancement of
-dead-end filling, it's the same complexity as the primary DFS traversal.
+O(Vertices + Edges), while the space complexity is O(Vertices). However, the
+process of building the Maze's intermediate representation is O(rows*columns) in
+both time and space. Then, adding in my enhancement of dead-end filling, it's
+the same complexity as the primary DFS traversal.
 
 This solution is a general-purpose solver for mazes of the supplied format, with
 ability to solve both perfect and imperfect mazes.
@@ -187,8 +183,8 @@ answer:
         - 'pop' when all decision paths exhausted
 7. How do I parse an image?
     - maze grid cells are uniform sizes, but small pixel variations are possible
-    - use OpenCV to sample centerpoints of each grid cell and make matrix of
-      "spaces" or "walls"
+    - use OpenCV to sample points of each grid cell to derive a matrix of cells
+      as "spaces" or "walls"
 8. How do I output a solution?
     - a solution is an ordered list of cell addresses
     - overlay markings for each solution address on a copy of the original image
@@ -221,9 +217,9 @@ the end node and started solving the additional user stories! Winding paths,
 dead-ends, rooms, all worked (sort-of; coming back to that :wink:).
 
 I chose DFS over "breadth-first search" because DFS is better if the solution is
-known to be far away (many nodes deep), and I knew upfront as a simple heuristic
-that all the mazes in the sample had start and end points at opposite ends of
-the graph.
+known to be far away (many nodes deep), and I assumed as a simple heuristic that
+all the mazes, based on the given samples, had start and end points at opposing
+ends of the graph.
 
 After a few dozen runs and refactors, I pushed that depth heuristic further:
 because the start was always the top, and the finish was always the bottom, by
@@ -235,28 +231,31 @@ was lazy and naively returning my "visited" data structure as my "solution", it
 included my failed paths as well as the correct path. So, after backtracking
 from a dead-end, I wasn't dropping the bad path of visited nodes from my
 solution. This meant that if the maze was laid out just right, the neighbor
-visiting heuristics would fail and the solver would visit every (or close to
-every) space in the maze. FAIL!
+visiting heuristics would fail and the solver would visit and report on every
+space in the maze. FAIL!
 
 Before addressing, I decided to spend time researching formal "maze-solving
 algorithms". This helped me (a) codify more of my assumptions, (b) identify
 gaps, and (c) try out other approaches.
 
-My current solution makes a lot of assumptions, and has some clear constraints.
+My current solution makes several key assumptions with some clear constraints.
+
 Here are some of them:
 
 - Entire maze is known upfront
 - One entrance at the top, one exit at the bottom
 - Maze images are standardized to grids of fixed-size cells about 88x64 pixels
-- Mazes must be smaller than 32 x 44 because of naive digitizer which accumulates sizing errors as the maze grows
+- Mazes must be smaller than 32 x 44 because of naive digitizer which
+  accumulates sizing errors as the maze grows
 - Only finds one solution path if multiple are available
 - Does not guarantee the shortest path
-- Time complexity grows with the complexity of the maze: O(Vertices + Edges) in graph speak
-- And of course ... the reports-every-failed-path "problem" :smirk:
+- Time complexity grows with the complexity of the maze: O(Vertices + Edges)
+- And of course ... the reports-every-failed-path "problem" 😏
 
 Now, because the entire maze is known, that provides several opportunities for
 alternative strategies. One such strategy I chose to implement from my research
 was dead-end filling.
+
 1. Identify all dead-ends
 2. Fill the dead-end path backwards to the next junction
 3. Repeat
@@ -265,6 +264,8 @@ This enhancement paired well with the DFS graph search because ... it eliminated
 all bad paths, leaving only correct paths :D
 
 JACKPOT!
+
+The best optimization is to simply avoid the problem.
 
 I could keep my lazy, naive DFS solution if I first filled in the dead-ends,
 leaving only one path for a perfect maze with no loops, or several correct paths
